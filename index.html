@@ -14,10 +14,12 @@
 				--bg-colour: #2d2b2b;
 				--border-radius: 0.5rem;
 				--txt-decoration: none;
-				--txt-decoration-hover: underline wavy var(--txt-colour);
+				--txt-decoration-hover: underline var(--txt-colour);
 			}
 			body {
 				font-family: Arial, Helvetica, sans-serif;
+				color: #fff;
+				background: #333;
 			}
 			a { text-decoration: none; }
 			a:hover, a:focus { text-decoration: underline var(--txt-colour); }
@@ -31,20 +33,27 @@
 		</p>
 
 		<p class="field">
-			<timed-link id="tl1" href="https://www.acu.edu.au" expiresat="2022-02-22T16:06:56+1100" long>
+			<timed-link id="tl1" href="https://www.acu.edu.au" expiresat="2022-02-22T22:06:56+1100" long>
 				Download Tax Receipt
 				<span slot="expired">You can no longer download your tax receipt</span>
 			</timed-link>
 		</p>
 		<p class="field">
-			<timed-link id="tl2" href="https://www.acu.edu.au" expiresat="2022-02-22T18:56:29+1100" short>
+			<timed-link id="tl2" href="https://www.acu.edu.au" expiresat="2022-02-22T21:56:29+1100" short>
 				Download Tax Receipt
 				<span slot="expired">You can no longer download your tax receipt</span>
 			</timed-link>
 		</p>
 
 		<p class="field">
-			<timed-link id="tl1" href="https://www.acu.edu.au" expiresat="2022-02-22T17:49:56+1100" hideexpired>
+			<timed-link id="tl1" href="https://www.acu.edu.au" expiresat="2022-02-22T17:49:56+1100" hideafterexpired>
+				Download Tax Receipt
+				<span slot="expired">You can no longer download your tax receipt</span>
+			</timed-link>
+		</p>
+
+		<p class="field">
+			<timed-link id="tl1" href="https://www.acu.edu.au" expiresat="2022-02-22T17:49:56+1100" hideexpiredduration>
 				Download Tax Receipt
 				<span slot="expired">You can no longer download your tax receipt</span>
 			</timed-link>

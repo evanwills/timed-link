@@ -35,10 +35,19 @@ export class TimedLink extends LitElement {
    * If expiry time is greater than midnight of the current day show
    * long date format (otherwise show long date format)
    *
-   * @var hideExpired
+   * @var hideAfterExpired
    */
   @property({ type: Boolean })
-  hideExpired : boolean = false;
+  hideAfterExpired : boolean = false;
+
+  /**
+   * If expiry time is greater than midnight of the current day show
+   * long date format (otherwise show long date format)
+   *
+   * @var hideExpiredDuration
+   */
+  @property({ type: Boolean })
+  hideExpiredDuration : boolean = false;
 
   /**
    * If expiry time is greater than midnight of the current day show
@@ -113,10 +122,11 @@ export class TimedLink extends LitElement {
       --border-radius: 0.85rem;
     }
     a {
-      text-decoration: none;
-      color: #000;
+      text-decoration: inherit;
+      color: inherit;
+      font-family: inherit
     }
-    a > .link-text {
+    a .link-text {
       background-color: var(--btn-bg-colour);
       border-radius: var(--border-radius, 0);
       color: var(--btn-colour);
@@ -125,7 +135,7 @@ export class TimedLink extends LitElement {
       text-decoration: var(--txt-decoration, none) !important;
     }
 
-    .link-text:hover, link-text:focus {
+    a .link-text:hover, a .link-text:focus {
       text-decoration: var(--txt-decoration-hover, underline #fff);
     }
     a .msg {
@@ -311,19 +321,21 @@ export class TimedLink extends LitElement {
    * Set the number of seconds remaining until the link expires
    */
   _setSecondsRemaining () : void {
-    const tmp = Math.round((this.endTime.getTime() - Date.now()) / 1000);
+    if (!this.expired || !this.hideExpiredDuration) {
+      const tmp = Math.round((this.endTime.getTime() - Date.now()) / 1000);
 
-    // Make sure seconds remaining is always positive
-    if (tmp <= 0) {
-      this.expired = true;
-      this.secondsRemaining = tmp * -1;
-    } else {
-      this.secondsRemaining = tmp;
+      // Make sure seconds remaining is always positive
+      if (tmp <= 0) {
+        this.expired = true;
+        this.secondsRemaining = tmp * -1;
+      } else {
+        this.secondsRemaining = tmp;
+      }
+
+      this.humanRemaining = (this.long)
+        ? this._getElapsedTimeLong(this.secondsRemaining)
+        : this._getElapsedTimeShort(this.secondsRemaining);
     }
-
-    this.humanRemaining = (this.long)
-      ? this._getElapsedTimeLong(this.secondsRemaining)
-      : this._getElapsedTimeShort(this.secondsRemaining);
   }
 
   /**
@@ -355,10 +367,10 @@ export class TimedLink extends LitElement {
           <span class="link-text"><slot></slot></span>
           <span class="msg">(${this.expiresPrefix} expires in ${this.humanRemaining})</span>
         </a>`
-      : (!this.hideExpired)
+      : (!this.hideAfterExpired)
         ? html`<span class="link link-expired" title="${this.expiresPrefix} expired on ${this.humanEnd}">
             <span class="link-text"><slot name="expired"><slot></slot></slot></span>
-            <span class="msg">(${this.expiresPrefix} expired ${this.humanRemaining} ago)</span>
+            ${(!this.hideExpiredDuration) ? html`<span class="msg">(${this.expiresPrefix} expired ${this.humanRemaining} ago)</span>` : ''}
           </span>`
         : '';
   }
