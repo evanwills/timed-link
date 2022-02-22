@@ -32,13 +32,13 @@ __Default:__ `FALSE`
 
 ```html
 <timed-link href="https://www.google.com" expiresat="2022-02-22T21:07:37+1100" long></timed-link>
+```
 
 Show duration in long format.
 
 Normally duration is displayed in short notation: `D (days?) HH:MM:SS hours` (if duration is longer than a day) or `H:MM:SS hours` for durations longer than an hour (but less than a day).
 
 If `long` is true the duration is express as: _`YEARS`_` years, `_`MONTHS`_` months, `_`DAYS`_` days, `_`HOURS`_` hours, `_`MINUTES`_` minutes & `_`SECONDS`_` seconds`
-```
 
 ### `hideExpired` *{boolean}*
 
@@ -57,7 +57,7 @@ __Default:__ `Link`
 
 
 ```html
-<timed-link href="https://www.google.com" expiresat="2022-02-22T21:07:37+1100" hideExpired></timed-link>
+<timed-link href="https://www.google.com" expiresat="2022-02-22T21:07:37+1100" expiresprefix="PDF download"></timed-link>
 ```
 
 
