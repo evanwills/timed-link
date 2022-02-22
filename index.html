@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/src/favicon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Timed link</title>
+		<script type="module" src="/src/timed-link.ts"></script>
+		<style>
+			:root {
+				--btn-colour: #fff;
+				--btn-bg-colour: rgb(0, 85, 34);
+				--txt-colour: #fff;
+				--bg-colour: #2d2b2b;
+				--border-radius: 0.5rem;
+				--txt-decoration: none;
+				--txt-decoration-hover: underline wavy var(--txt-colour);
+			}
+			body {
+				font-family: Arial, Helvetica, sans-serif;
+			}
+			a { text-decoration: none; }
+			a:hover, a:focus { text-decoration: underline var(--txt-colour); }
+		</style>
+	</head>
+	<body>
+		<h1><code>&lt;timed-link&gt;</code> web component;</h1>
+
+		<p>
+			<code>&lt;timed-link&gt;</code> is a web component that shows a link until the link expires
+		</p>
+
+		<p class="field">
+			<timed-link id="tl1" href="https://www.acu.edu.au" expiresat="2022-02-22T16:06:56+1100" long>
+				Download Tax Receipt
+				<span slot="expired">You can no longer download your tax receipt</span>
+			</timed-link>
+		</p>
+		<p class="field">
+			<timed-link id="tl2" href="https://www.acu.edu.au" expiresat="2022-02-22T18:56:29+1100" short>
+				Download Tax Receipt
+				<span slot="expired">You can no longer download your tax receipt</span>
+			</timed-link>
+		</p>
+
+		<p class="field">
+			<timed-link id="tl1" href="https://www.acu.edu.au" expiresat="2022-02-22T17:49:56+1100" hideexpired>
+				Download Tax Receipt
+				<span slot="expired">You can no longer download your tax receipt</span>
+			</timed-link>
+		</p>
+
+
+		<script type="text/javascript">
+			console.log('what\'s going on here')
+			function changer (e) {
+				console.group('duration-input event listener')
+				console.log('this:', this)
+				console.log('this.href:', this.__href)
+				console.log('this.expiresAt:', this.__expiresAt)
+				console.log('this.expiredMsg:', this.__expiredMsg)
+				console.log('this.secondsRemaining:', this.secondsRemaining)
+				console.log('this.expired:', this.expired)
+				console.log('this.expiredMsg:', this.__expiredMsg)
+				console.groupEnd()
+			}
+			document.onreadystatechange = function () {
+				if (document.readyState === 'complete' ||
+					document.readyState === 'interactive'
+				) {
+					for (let a = 1; a <= 8; a += 1) {
+						const reg = document.getElementById('tl1');
+						reg.addEventListener('change', changer)
+						// console.log('reg' + a + ':', reg)
+					}
+				}
+			}
+		</script>
+  	</body>
+</html>
